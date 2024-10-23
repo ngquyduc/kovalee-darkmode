@@ -1,641 +1,543 @@
 ---
 # You can also start simply with 'default'
-theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
+theme: default
+title: SwiftUI Dark Mode
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply unocss classes to the current slide
+  ## How to implement Dark Mode in SwiftUI
 class: text-center
-# https://sli.dev/features/drawing
 drawings:
   persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
 transition: slide-left
-# enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
-# take snapshot for each slide in the overview
 overviewSnapshots: true
 ---
 
-# Welcome to Slidev
+# Dark Mode in SwiftUI
 
-Presentation slides for developers
-
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
+How to implement dark mode for IOS Apps in SwiftUI
 
 <div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub" title="Open in GitHub"
+  <a href="https://github.com/ngquyduc/kovalee-darkmode" target="_blank" alt="GitHub" title="Open in GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon-logo-github />
   </a>
 </div>
 
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
-transition: fade-out
+layout: center
 ---
 
-# What is Slidev?
-
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
+# Key aspects of SwiftUI's dark mode implementation
 
 ---
 transition: slide-up
-level: 2
 ---
 
-# Navigation
+# 1. System Environment
 
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
+SwiftUI uses an environment value called colorScheme to determine the current appearance:
 
-## Keyboard Shortcuts
-
-|     |     |
-| --- | --- |
-| <kbd>right</kbd> / <kbd>space</kbd>| next animation or slide |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd> | previous slide |
-| <kbd>down</kbd> | next slide |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1"></Toc>
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc v-click minDepth="1" maxDepth="2"></Toc>
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
+```swift {|2,5}
+struct ContentView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        Text("Current mode: \(colorScheme == .dark ? "Dark" : "Light")")
     }
-  }
 }
 ```
 
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
+
+---
+transition: fade
+---
+
+# 2. Built-in Color Adaptation
+
+Colors in SwiftUI automatically adapt to dark mode in several ways:
+
+**System Colors**
+
+```swift {|6,8,12,14}
+struct SystemColorsView: View {
+    var body: some View {
+        VStack {
+            // These colors automatically adapt
+            Text("Primary")
+                .foregroundStyle(.primary)  // Black in light, White in dark
+            Text("Secondary")
+                .foregroundStyle(.secondary)  // Dark gray in light, Light gray in dark
+            
+            // System Background colors
+            Rectangle()
+                .fill(.background)  // White in light, Black in dark
+            Rectangle()
+                .fill(.secondaryBackground)  // Light gray in light, Dark gray in dark
+        }
     }
-  })
 }
 ```
 
-Non-code blocks are ignored.
+---
+transition: fade
+---
 
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
+# 2. Built-in Color Adaptation
+
+Colors in SwiftUI automatically adapt to dark mode in several ways:
+
+**Asset Catalog Colors**
+
+``` swift
+// In Assets.xcassets, create a Color Set with:
+// - Appearance: Any, Dark
+// - Input Method: Color
+// Then use it in code:
+struct AssetColorView: View {
+    var body: some View {
+        Color("AccentColor") // Will automatically switch based on mode
+    }
 }
-</script>
+```
+
+---
+transition: slide-up
+---
+
+# 2. Built-in Color Adaptation
+
+Colors in SwiftUI automatically adapt to dark mode in several ways:
+
+**Semantic Colors**
+
+```swift{|5,10,13}
+struct SemanticColorsView: View {
+    var body: some View {
+        VStack {
+            Label("Default Text", systemImage: "text.bubble")
+                .foregroundStyle(.primary)
+            
+            Button("Action") {
+                // action
+            }
+            .tint(.accentColor)  // System blue that adapts to dark mode
+            
+            Label("Warning", systemImage: "exclamationmark.triangle")
+                .foregroundStyle(.red)  // System red that adapts
+        }
+    }
+}
+```
+
+---
+transition: slide-up
+---
+
+# 3. Manual Handling
+
+When you need custom colors for each mode:
+
+```swift{|5,6,15,16,17}
+struct CustomColorView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var backgroundColor: Color {
+        colorScheme == .dark ? 
+            Color(red: 0.2, green: 0.2, blue: 0.2) : Color(red: 0.9, green: 0.9, blue: 0.9)
+    }
+    
+    var body: some View {
+        VStack {
+            Text("Hello")
+                .background(backgroundColor)
+            
+            Text("World")
+                .foregroundStyle(
+                    colorScheme == .dark ? .white : .black
+                )
+            
+            Text("Fixed Dark Mode")
+                .preferredColorScheme(.dark)
+        }
+    }
+}
+```
+
+---
+transition: slide-up
+---
+
+# 4. Overriding System Mode
+For Entire View Hierarchy
+
+```swift{|8}
+struct OverrideView: View {
+    var body: some View {
+        NavigationView {
+            List {
+                Text("Always Dark Mode")
+            }
+        }
+        .preferredColorScheme(.dark) // Forces dark mode
+    }
+}
+```
+
+---
+transition: fade
+---
+
+# 5. App-Level Config
+
+In your app's main entry point:
+
+```swift{|3,12,13,14,15,16,17,18,19,20,21}
+@main
+struct MyApp: App {
+    @AppStorage("userInterfaceStyle") var userInterfaceStyle: String = "system"
+    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .preferredColorScheme(colorScheme)
+        }
+    }
+    
+    var colorScheme: ColorScheme? {
+        switch userInterfaceStyle {
+        case "light":
+            return .light
+        case "dark":
+            return .dark
+        default:
+            return nil  // Follow system
+        }
+    }
+}
+```
+
+---
+
+# 5. App-Level Config
+
+In your app's main entry point:
+
+```swift
+// Settings view to change the mode
+struct SettingsView: View {
+    @AppStorage("userInterfaceStyle") var userInterfaceStyle: String = "system"
+    
+    var body: some View {
+        Picker("Appearance", selection: $userInterfaceStyle) {
+            Text("System").tag("system")
+            Text("Light").tag("light")
+            Text("Dark").tag("dark")
+        }
+    }
+}
+```
+
+---
+
+# SwiftUI Default Approach Limitations
+
+1. Scattered Color Definitions
+2. No Central Color Management
+3. Limited Theme Variations
+4. Complex Color Scheme Changes
+
+--- 
+layout: image
+
+image: ./assets/components-ios.png
+---
+
+---
+layout: center
+transition: slide-up
+---
+
+# New ThemeProtocol
+
+
+---
+transition: slide-up
+---
+
+# Step 1: Color Sets
+
+First, we introduce a ColorSet struct to group colors:
+
+```swift
+public struct ColorSet {
+    let primary: Color
+    let secondary: Color
+    let tertiary: Color
+    let background: Color
+    let secondaryBackground: Color
+    let text: Color
+    let error: Color
+    let pro: Color
+    
+    public init(
+      ...
+    ) {
+      ...
+    }
+}
+```
+
+---
+transition: slide-up
+---
+
+# Step 2: Theme Mode
+
+Adding theme mode support:
+
+```swift
+public enum ThemeMode {
+    case light
+    case dark
+    case system
+}
+
+public protocol DynamicColorProtocol {
+    var lightColors: ColorSet { get }
+    var darkColors: ColorSet { get }
+    var currentMode: ThemeMode { get }
+    
+    func getColor(_ keyPath: KeyPath<ColorSet, Color>) -> Color
+}
+```
+
+---
+transition: fade
+---
+
+# Step 3: Dynamic Colors Implementation
+
+Implementing the dynamic color system:
+
+```swift
+public class DynamicColors: DynamicColorProtocol, ObservableObject {
+    public let lightColors: ColorSet
+    public let darkColors: ColorSet
+    @Published public var currentMode: ThemeMode
+    
+    @Environment(\.colorScheme) private var systemColorScheme
+    
+    public init(lightColors: ColorSet, darkColors: ColorSet, initialMode: ThemeMode = .system) {
+        self.lightColors = lightColors
+        self.darkColors = darkColors
+        self.currentMode = initialMode
+    }
+```
+
+---
+transition: slide-up
+---
+
+# Step 3: Dynamic Colors Implementation
+
+Implementing the dynamic color system:
+
+```swift
+    public func getColor(_ keyPath: KeyPath<ColorSet, Color>) -> Color {
+        switch currentMode {
+        case .light:
+            return lightColors[keyPath: keyPath]
+        case .dark:
+            return darkColors[keyPath: keyPath]
+        case .system:
+            return systemColorScheme == .dark ? 
+                darkColors[keyPath: keyPath] : 
+                lightColors[keyPath: keyPath]
+        }
+    }
+}
+```
+
+---
+transition: fade
+---
+
+# Step 4: Updated Color Protocol
+
+Modifying the original ColorProtocol to support theme switching:
+
+````md magic-move
+```swift
+public protocol ColorProtocol {
+    var primary: Color { get }
+    var secondary: Color { get }
+    var tertiary: Color { get }
+    var background: Color { get }
+    var secondaryBackground: Color { get }
+    var text: Color { get }
+    var error: Color { get }
+    var pro: Color { get }
+}
+```
+```swift
+public protocol ColorProtocol {
+    var primary: Color { get }
+    var secondary: Color { get }
+    var tertiary: Color { get }
+    var background: Color { get }
+    var secondaryBackground: Color { get }
+    var text: Color { get }
+    var error: Color { get }
+    var pro: Color { get }
+    
+    // New method for theme switching
+    func switchToMode(_ mode: ThemeMode)
+}
 ```
 ````
 
 ---
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
+transition: slide-up
 ---
 
-# Themes
+# Step 4: Updated Color Protocol
 
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
+Modifying the original ColorProtocol to support theme switching:
 
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
-
-<v-click>
-
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div mt-20 v-click>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
+```swift
+public class DynamicThemeColors: ColorProtocol, ObservableObject {
+    private let dynamicColors: DynamicColors
+    
+    public init(dynamicColors: DynamicColors) {
+        self.dynamicColors = dynamicColors
+    }
+    
+    public var primary: Color { dynamicColors.getColor(\.primary) }
+    public var secondary: Color { dynamicColors.getColor(\.secondary) }
+    public var tertiary: Color { dynamicColors.getColor(\.tertiary) }
+    public var background: Color { dynamicColors.getColor(\.background) }
+    public var secondaryBackground: Color { dynamicColors.getColor(\.secondaryBackground) }
+    public var text: Color { dynamicColors.getColor(\.text) }
+    public var error: Color { dynamicColors.getColor(\.error) }
+    public var pro: Color { dynamicColors.getColor(\.pro) }
+    
+    public func switchToMode(_ mode: ThemeMode) {
+        dynamicColors.currentMode = mode
+    }
 }
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn more](https://sli.dev/guide/animations.html#motion)
-
-</div>
+```
 
 ---
 
-# LaTeX
+# Final Implementation: CustomTheme
 
-LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
+Putting it all together in the CustomTheme class:
 
-<div h-3 />
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
-
-[Learn more](https://sli.dev/features/latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
+````md magic-move
+```swift
+public protocol ThemeProtocol {
+    /// Color theme components adhering to `ColorProtocol`.
+    var colors: ColorProtocol { get }
+    /// Typography settings adhering to `TypographyProtocol`.
+    var typography: TypographyProtocol { get }
+    /// Spacing metrics adhering to `SpacingProtocol`.
+    var spacing: SpacingProtocol { get }
 }
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
+```
+```swift
+public class CustomTheme: ThemeProtocol, ObservableObject {
+    @Published public var colors: ColorProtocol
+    public var typography: TypographyProtocol
+    public var spacing: SpacingProtocol
+    
+    public init(
+        colors: ColorProtocol,
+        typography: TypographyProtocol = BasicTypography(),
+        spacing: SpacingProtocol = BasicSpacing()
+    ) {
+        self.colors = colors
+        self.typography = typography
+        self.spacing = spacing
+    }
 }
-
-cloud {
-  [Example 1]
+```
+```swift
+// Environment setup
+private struct ThemeKey: EnvironmentKey {
+    static let defaultValue: CustomTheme = CustomTheme(
+        colors: DynamicThemeColors(
+            dynamicColors: DynamicColors(
+                lightColors: ColorSet(/* light mode colors */),
+                darkColors: ColorSet(/* dark mode colors */)
+            )
+        )
+    )
 }
+```
+````
 
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
+---
+transition: fade
+---
+
+# Usage Example
+
+How to use the new theme system in your app:
+
+```swift
+struct MyApp: App {
+    @StateObject private var theme: CustomTheme = {
+        // Define your color sets
+        let lightColors = ColorSet(
+            ...
+        )
+        
+        let darkColors = ColorSet(
+            ...
+        )
+        
+        let dynamicColors = DynamicColors(
+            lightColors: lightColors,
+            darkColors: darkColors,
+            initialMode: .system
+        )
+        
+        return CustomTheme(
+            colors: DynamicThemeColors(dynamicColors: dynamicColors)
+        )
+    }()
+```
+---
+transition: fade
+---
+
+# Usage Example
+
+How to use the new theme system in your app:
+
+```swift    
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environment(\.theme, theme)
+        }
+    }
 }
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
----
-
-# Draggable Elements
-
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <carbon:arrow-up />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
-  </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
-
----
-
-# Monaco Editor
-
-Slidev provides built-in Monaco Editor support.
-
-Add `{monaco}` to the code block to turn it into an editor:
-
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
-
-const arr = ref(emptyArray(10))
-```
-
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
-
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
-
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
 ```
 
 ---
 layout: center
-class: text-center
+---
+# DEMO WITH JOURNALING APP
+
+---
+layout: center
 ---
 
-# Learn More
+# [PULL REQUEST](https://github.com/cotyapps/Components-iOS/pull/96)
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+---
+layout: center
+---
 
-<PoweredBySlidev mt-10 />
+# THANK YOU!
